@@ -33,6 +33,15 @@ public class QuizActivity extends Activity {
 
 	private static final String TAG = "QuizActivity";
 
+	private static final String KEY_INDEX = "index";
+
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+		Log.d(TAG, "onSaveInstanceState");
+		savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+	}
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -67,8 +76,11 @@ public class QuizActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreated(Bundle) called");
-		setContentView(R.layout.activity_quizi);
+		setContentView(R.layout.activity_quiz);
 
+		if (savedInstanceState != null) {
+			mCurrentIndex = savedInstanceState.getInt(KEY_INDEX);
+		}
 		mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 		updateQuestion();
 		mQuestionTextView.setOnClickListener(new View.OnClickListener() {
